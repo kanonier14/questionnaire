@@ -1,0 +1,13 @@
+.header {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.header div {
+     display: inline-block;
+     margin-right: 5%;
+}
+
+.footer {
+    margin-bottom: 0;
+}
