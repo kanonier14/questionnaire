@@ -1,11 +1,22 @@
-<div class="header">
-    <div>
-        <a href="/">Главная страница</a>
+<header class="baheader header">
+    <div class="container clearfix">
+        <a href="/" class="logo"><img src="#"/></a>
+
+        <ul class="topNav">
+
+            <li >
+                <a href="/">Главная страница</a>
+            </li>
+            <li >
+                <a href="/questionnaire/create">Новый опрос</a>
+            </li>
+        </ul>
+
+
+        <div class="login-buttons">
+            <a class="btn btn-primary btn-embossed loginConnect" href="#modal-login" data-tab="tab-login" data-toggle="modal">Вход</a>
+
+            <a class="btn btn-primary btn-embossed loginConnect" href="#modal-login" data-tab="tab-registration" data-toggle="modal">Регистрация</a>
+        </div>
     </div>
-    <div>
-        <a href="/bpeditor">Шаблоны бизнесс-процессов</a>
-    </div>
-    <div>
-        <a href="/usercreate">Создание пользователя</a>
-    </div>
-</div>
+</header>
