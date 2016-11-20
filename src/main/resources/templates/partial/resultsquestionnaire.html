@@ -1,0 +1,14 @@
+<div>
+    <div th:text="${questionnaire.title}"/>
+    <div th:each="question : ${questionnaire.questions}">
+        <div class="question__result">
+            <div th:text="${question.title}"/>
+            <div th:each="answer : ${question.answers}">
+                <div>
+                    <span th:text="${answer.title}"/>
+                    Количество голосов: <span th:text="${answer.number}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

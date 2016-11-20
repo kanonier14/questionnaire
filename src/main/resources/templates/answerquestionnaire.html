@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Questionnaire</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <div th:include="partial/headlibs"/>
+</head>
+<body>
+<div th:include="partial/header"/>
+<div>
+    <div class="questionnaire__title">
+        <div th:text="${questionnaire.title}"/>
+        <div>
+            <a th:href="@{/questionnaire/results(id=${questionnaire.idQuestionnaire})}">
+                Результаты.
+            </a>
+        </div>
+        <form action="/questionnaire/answer" method="post">
+            <input name="idQuestionnaire" type="hidden" th:value="${questionnaire.idQuestionnaire}"/>
+            <div th:each="question : ${questionnaire.questions}">
+                <div class="question_title" th:text="${question.title}"/>
+                <div th:each="answer : ${question.answers}">
+                    <input type="radio" th:name="${question.idQuestion}" th:value="${answer.idAnswer}"/>
+                    <span th:text="${answer.title}"/>
+                </div>
+            </div>
+            <button>Ответить</button>
+        </form>
+
+    </div>
+</div>
+<div th:include="partial/footer"/>
+<div th:include="partial/footerlibs"/>
+</body>
+</html>

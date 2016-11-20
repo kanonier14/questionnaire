@@ -1,0 +1,12 @@
+<div>
+    <div>Доступные анкеты:</div>
+    <div>
+        <ul th:each="questionnaire : ${questionnaires}">
+            <li>
+                <a th:href="@{/questionnaire/answer(id=${questionnaire.idQuestionnaire})}">
+                    <div th:text="${questionnaire.title}"/>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
