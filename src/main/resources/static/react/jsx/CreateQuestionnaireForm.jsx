@@ -3,22 +3,23 @@ var CreateQuestionnaireForm = React.createClass({
         return({questions: []});
     },
 
-    addQuestion: function() {
+    addQuestion: function(e) {
         let previousQuestionsState = this.state.questions;
         let nameQuestion = 'question_' + previousQuestionsState.length;
-        previousQuestionsState.push({name: nameQuestion});
+        let typeQuestion = e.currentTarget.dataset.type;
+        previousQuestionsState.push({name: nameQuestion, type: typeQuestion});
         this.setState({questions: previousQuestionsState});
     },
 
     render: function() {
         let questions = this.state.questions.map(function (item) {
-            return <CreateQuestionForm key={item.name} name={item.name}/>;
+            return <CreateQuestionForm key={item.name} name={item.name} type={item.type}/>;
         });
         return(
             <form method="post" action="/questionnaire/save">
                 <QuestionnaireEditHeader/>
-                <div onClick={this.addQuestion}>
-                    <AddQuestionButton/>
+                <div>
+                    <QuestionTypeSwitcher addQuestion={this.addQuestion}/>
                 </div>
 
                 <div>
@@ -29,4 +30,4 @@ var CreateQuestionnaireForm = React.createClass({
     }
 });
 
-components.register("CreateQuestionnaire", CreateQuestionnaireForm);
+components.register("CreateQuestionnaireForm", CreateQuestionnaireForm);

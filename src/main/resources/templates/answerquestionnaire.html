@@ -21,7 +21,8 @@
                 <h2 class="questionnaire_answer_form__question_title" th:text="${question.title}"/>
                 <div class="questionnaire_answer_form__question_answers" th:each="answer : ${question.answers}">
                     <div class="questionnaire_answer_form__question_answer">
-                        <input type="radio" th:name="${question.idQuestion}" th:value="${answer.idAnswer}"/>
+                        <input th:if="${question.questionType.getName()} == 'radio'" type="radio" th:name="${question.idQuestion}" th:value="${answer.idAnswer}"/>
+                        <input th:if="${question.questionType.getName()} == 'checkbox'" type="checkbox" th:name="${question.idQuestion}" th:value="${answer.idAnswer}"/>
                         <span class="questionnaire_answer_form__question_answer_title" th:text="${answer.title}"/>
                     </div>
                 </div>

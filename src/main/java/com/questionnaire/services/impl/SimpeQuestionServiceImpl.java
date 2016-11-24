@@ -1,5 +1,6 @@
 package com.questionnaire.services.impl;
 
+import com.questionnaire.core.QuestionType;
 import com.questionnaire.entity.SimpleAnswer;
 import com.questionnaire.entity.SimpleQuestion;
 import com.questionnaire.repository.SimpleQuestionRepository;
@@ -19,7 +20,9 @@ import java.util.stream.Collectors;
 @Service
 public class SimpeQuestionServiceImpl implements SimpleQuestionService {
 
+    private static final String TITLE_POSTFIX = "_title";
     private final String QUESTION_TITLE_REGEXP = "question_([0-9]+)_title";
+    private final String TYPE_POSTFIX = "_type";
     private final Pattern questionPattern = Pattern.compile(QUESTION_TITLE_REGEXP);
 
     @Autowired
@@ -34,8 +37,9 @@ public class SimpeQuestionServiceImpl implements SimpleQuestionService {
                 .map(parameter -> {
                     SimpleQuestion question = new SimpleQuestion();
                     question.setTitle(parameter.getValue()[0]);
+                    question.setQuestionType(QuestionType.valueOf(parameters.get(parameter.getKey().replaceAll(TITLE_POSTFIX, TYPE_POSTFIX))[0]));
                     List<SimpleAnswer> answers = simpleAnswerService
-                            .createAnswersFromRequestParameters(parameters, parameter.getKey().replaceAll("_title", ""));
+                            .createAnswersFromRequestParameters(parameters, parameter.getKey().replaceAll(TITLE_POSTFIX, ""));
                     question.setAnswers(answers);
                     questionRepository.save(question);
                     return question;

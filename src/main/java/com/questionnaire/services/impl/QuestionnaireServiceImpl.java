@@ -35,6 +35,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
                 .map(question -> {
                     Question questionResult = new Question();
                     questionResult.setTitle(question.getTitle());
+                    questionResult.setQuestionType(question.getQuestionType());
                     List<AnswerToQuestion> answersToQuestion = answerToQuestionRepository.findByQuestion(question);
                     List<Answer> answers = question.getAnswers().stream()
                             .map(simpleAnswer -> {

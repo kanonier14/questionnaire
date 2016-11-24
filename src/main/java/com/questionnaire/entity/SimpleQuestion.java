@@ -1,5 +1,7 @@
 package com.questionnaire.entity;
 
+import com.questionnaire.core.QuestionType;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
@@ -14,6 +16,16 @@ public class SimpleQuestion {
     private String idQuestion;
 
     private String title;
+
+    private QuestionType questionType;
+
+    public QuestionType getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(QuestionType questionType) {
+        this.questionType = questionType;
+    }
 
     @DBRef
     private List<SimpleAnswer> answers;

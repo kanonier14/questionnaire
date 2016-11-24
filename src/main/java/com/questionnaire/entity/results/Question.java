@@ -1,5 +1,7 @@
 package com.questionnaire.entity.results;
 
+import com.questionnaire.core.QuestionType;
+
 import java.util.List;
 
 /**
@@ -8,6 +10,7 @@ import java.util.List;
 public class Question {
     private String id;
     private String title;
+    private QuestionType questionType;
     private List<Answer> answers;
 
     public String getId() {
@@ -33,6 +36,15 @@ public class Question {
     public void setAnswers(List<Answer> answers) {
         this.answers = answers;
     }
+
+    public QuestionType getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(QuestionType questionType) {
+        this.questionType = questionType;
+    }
+
 
     public Question() {
 
