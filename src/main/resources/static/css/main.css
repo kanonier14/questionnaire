@@ -9,7 +9,7 @@
 
 .questionnaire-edit--questionnaire-title {
     resize: none;
-    width: 90%;
+    width: 100%;
     margin-right: auto;
     margin-left: auto;
     height: 78px;
@@ -39,11 +39,12 @@
 
 .question-edit-form__text {
     resize:none;
-    width: 75%;
+    width: 100%;
     min-height: 50px;
 }
 
 .question-edit-form {
+    position: relative;
     border: 1px solid #D2CED6 !important;
     padding: 15px;
     background: #eee;
@@ -55,6 +56,7 @@
 .questionnaire-form-wrapper {
     width: 74%;
     display: inline-block;
+    margin: 20px 0;
 }
 
 .questionnaire-page-left-column {
@@ -111,6 +113,17 @@
     margin-bottom: 5px;
     cursor: pointer;
     background-color: #ececec;
+}
+
+.question_type_item {
+    cursor: pointer;
+}
+
+.remove_question_button {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 /*===========================================================FOOTER====================================*/
 footer .container {

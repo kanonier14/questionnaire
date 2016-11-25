@@ -11,9 +11,18 @@ var CreateQuestionnaireForm = React.createClass({
         this.setState({questions: previousQuestionsState});
     },
 
+    removeQuestion: function(e) {
+        let removedQuestionName = e.currentTarget.dataset.questionname;
+        let previousQuestionsState = this.state.questions.filter(function(item) {
+            return item.name !== removedQuestionName;
+        });
+        this.setState({questions: previousQuestionsState});
+    },
+
     render: function() {
+        let removeQuestion = this.removeQuestion;
         let questions = this.state.questions.map(function (item) {
-            return <CreateQuestionForm key={item.name} name={item.name} type={item.type}/>;
+            return <CreateQuestionForm key={item.name} name={item.name} type={item.type} removeQuestion={removeQuestion}/>;
         });
         return(
             <form method="post" action="/questionnaire/save">

@@ -18,6 +18,7 @@ var CreateQuestionForm = React.createClass({
         });
         return(
             <div className="question-edit-form">
+                <div className="remove_question_button" data-questionname={this.props.name} onClick={this.props.removeQuestion}>X</div>
                 <textarea name={title_name} className="question-edit-form__text" placeholder="Введите текст вопроса"></textarea>
                 <input type="hidden" name={type_name} value={this.props.type}/>
                 <div className="question-edit-form__answers">

@@ -3,8 +3,8 @@ var QuestionTypeSwitcher = React.createClass({
         return(
             <div>
                 <ul>
-                    <li onClick={this.props.addQuestion} data-type="RADIO">Radio button</li>
-                    <li onClick={this.props.addQuestion} data-type="CHECKBOX">Checkbox</li>
+                    <li className="question_type_item" onClick={this.props.addQuestion} data-type="RADIO">Radio button</li>
+                    <li className="question_type_item" onClick={this.props.addQuestion} data-type="CHECKBOX">Checkbox</li>
                 </ul>
             </div>
         );
