@@ -14,10 +14,15 @@ public class RootController {
 
     @Autowired
     private QuestionnaireRepository questionnaireRepository;
+
     @RequestMapping("/")
     public String getMainPage(Model model) {
         model.addAttribute("questionnaires", questionnaireRepository.findAll());
         return "index";
     }
 
+    @RequestMapping(path = "/personalaccount")
+    public String getPersonalAccountPage() {
+        return "personalaccount";
+    }
 }

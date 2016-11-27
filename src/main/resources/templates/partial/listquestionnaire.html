@@ -1,9 +1,12 @@
-<div>
+<div class="wrapper">
     <div>Доступные анкеты:</div>
     <div>
-        <div class="questionnaire_list_item" th:each="questionnaire : ${questionnaires}">
-            <div th:include="partial/QuestionnaireListItem">
-            </div>
-        </div>
+        <span th:each="questionnaire : ${questionnaires}">
+            <a class="questionnaire_list_item_link" th:href="@{/questionnaire/answer(id=${questionnaire.idQuestionnaire})}">
+                <div class="questionnaire_list_item">
+                    <div class="questionnaire_list_item__title" th:text="${questionnaire.title}"/>
+                </div>
+            </a>
+        </span>
     </div>
 </div>

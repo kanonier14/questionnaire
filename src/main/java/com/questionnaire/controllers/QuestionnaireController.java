@@ -88,7 +88,7 @@ public class QuestionnaireController {
         response.sendRedirect("/");
     }
 
-    @RequestMapping(path = "results", params = "id", method = RequestMethod.GET)
+    @RequestMapping(path = "/results", params = "id", method = RequestMethod.GET)
     public String getQuestionnaireResults(Model model, HttpServletRequest request, HttpServletResponse response) {
         String idQuestionnaire = request.getParameter("id");
         QuestionnaireResults questionnaireResults = questionnaireService.getResults(idQuestionnaire);

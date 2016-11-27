@@ -24,7 +24,7 @@ var CreateQuestionForm = React.createClass({
                 <div className="question-edit-form__answers">
                     {answers}
                 </div>
-                <div className="question-edit-form__add-answer-button" onClick={this.addAnswer}>
+                <div className="btn btn-primary btn-lg" onClick={this.addAnswer}>
                     Добавить ответ
                 </div>
             </div>

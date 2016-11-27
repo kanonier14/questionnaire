@@ -3,14 +3,14 @@
 <head>
     <title>Create Questionnaire</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <div th:include="partial/headlibs"/>
+    <div th:replace="partial/headlibs"/>
 </head>
 <body>
-    <div th:include="partial/header"/>
+    <div th:replace="partial/header"/>
 
     <div class="questionnaire-page-left-column"/>
     <div class="questionnaire-form-wrapper" data-component="CreateQuestionnaireForm"/>
 
-    <div th:include="partial/footerlibs"/>
+    <div th:replace="partial/footerlibs"/>
 </body>
 </html>

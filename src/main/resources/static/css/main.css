@@ -1,3 +1,17 @@
+html, body {
+    min-height: 100%;
+}
+
+.body_wrapper {
+   /* display: flex;
+    flex-direction: column;
+    height: 100%;*/
+}
+
+footer {
+    flex: 0 0 auto;
+}
+
 .questionnaire-edit--header {
     padding: 18px;
     background-color: #fafafa;
@@ -115,8 +129,30 @@
     background-color: #ececec;
 }
 
+.question_type_switcher {
+    width: 600px;
+    margin: 0 auto;
+    padding-left: 1%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: rgba(0,0,0,0.7);
+    border: 1px solid #D2CED6 !important;
+    border-radius: 0 0 4px 4px;
+}
+
 .question_type_item {
     cursor: pointer;
+    display: inline-block;
+    width: 31%;
+    height: 100px;
+    margin-right: 2%;
+    background-color: rgba(0,0,0,1.0);
+    padding-top: 30px;
+    font-size: 16px;
+    text-align: center;
+    color: wheat;
+    border: 1px solid #D2CED6 !important;
+    border-radius: 0 0 4px 4px;
 }
 
 .remove_question_button {
@@ -156,15 +192,98 @@
 .questionnaire_list_item {
     width: 32%;
     margin-right: 1%;
+    margin-bottom: 20px;
     height: 200px;
     background-color: #ffffff;
     border-radius: 5px;
     border: 1px solid #ccc;
     display: inline-block;
+    background-image: url(/images/questionnaire_background.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto 200px;
+}
+
+.questionnaire_list_item__title {
+    text-align: center;
+    background-color: rgba(0,0,0,0.2);
+    height: 200px;
+    padding-top: 20px;
+    font-size: 18px;
+    color: white;
 }
 
 .questionnaire_list_item_link {
     height: 200px;
+}
+
+.newsurvey {
+    height: auto !important;
+    left: 0 !important;
+}
+.newsurvey {
+    position: relative;
+    top: 15px;
+    left: 10px;
+    float: left;
+    height: 60px;
+}
+
+.newsurvey .newitem {
+    background: #81A33E url(../img/fl2015-icon-plus.png) 15px center no-repeat !important;
+    padding-left: 41px !important;
+    margin-right: 10px !important;
+    background: #81A33E !important;
+    color: #fff !important;
+    border: 1px solid #698E34 !important;
+    border-radius: 5px !important;
+    display: inline-block !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 18px !important;
+    font-weight: normal !important;
+    padding: 0 13px !important;
+    margin: 0 !important;
+    width: auto !important;
+    text-shadow: none !important;
+    height: 38px !important;
+    line-height: 38px !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+    text-transform: none !important;
+}
+
+.newsurvey .newitem:hover {
+    background-color: #698E34 !important;
+}
+
+.wrapper {
+    width: 974px;
+    margin: 0 auto;
+    padding: 0;
+    text-align: left;
+    position: relative;
+}
+
+.content_header {
+    padding: 25px 0;
+    overflow: hidden;
+    border-bottom: 1px solid #ccc;
+}
+
+.content_header__title {
+    color: #333;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 18px;
+    float: left;
+}
+
+.questionnaire-edit--header .newsurvey {
+    position: initial;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    display: block;
 }
 /*===========================================================FOOTER====================================*/
 footer .container {
