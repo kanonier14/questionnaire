@@ -3,7 +3,8 @@ var AnswerEditRadioButton = React.createClass({
         let name = this.props.name;
         return(
             <div className="question-edit-form__answer-edit-text">
-                <input type="text" placeholder="введите ответ" name={name}></input>
+                <input data-required type="text" placeholder="введите ответ" name={name}></input>
+                <a data-answername={name} onClick={this.props.removeAnswer}>X</a>
             </div>
         );
     }

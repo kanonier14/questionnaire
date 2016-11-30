@@ -10,17 +10,26 @@ var CreateQuestionForm = React.createClass({
         this.setState({answers: answersState});
     },
 
+    removeAnswer: function(event) {
+        let removedAnswerName = event.currentTarget.dataset.answername;
+        let previousAnswersState = this.state.answers.filter(function(item) {
+            return item.name !== removedAnswerName;
+        });
+        this.setState({answers: previousAnswersState});
+    },
+
     render: function() {
         let title_name = this.props.name + '_title';
         let type_name = this.props.name + '_type';
+        let removeAnswer = this.removeAnswer
         let answers = this.state.answers.map(function (item) {
-            return <AnswerEditRadioButton key={item.name} name={item.name}/>;
+            return <AnswerEditRadioButton key={item.name} name={item.name} removeAnswer={removeAnswer}/>;
         });
         return(
             <div className="question-edit-form">
                 <div className="remove_question_button" data-questionname={this.props.name} onClick={this.props.removeQuestion}>X</div>
-                <textarea name={title_name} className="question-edit-form__text" placeholder="Введите текст вопроса"></textarea>
-                <input type="hidden" name={type_name} value={this.props.type}/>
+                <textarea data-required name={title_name} className="question-edit-form__text" placeholder="Введите текст вопроса"></textarea>
+                <input data-required type="hidden" name={type_name} value={this.props.type}/>
                 <div className="question-edit-form__answers">
                     {answers}
                 </div>
