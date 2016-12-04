@@ -90,6 +90,12 @@
             <version>2.7</version>
         </dependency>
 
+        <!--VK API-->
+        <dependency>
+            <groupId>com.vk.api</groupId>
+            <artifactId>sdk</artifactId>
+            <version>0.3.6</version>
+        </dependency>
     </dependencies>
 
     <profiles>

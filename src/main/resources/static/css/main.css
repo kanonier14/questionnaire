@@ -485,7 +485,9 @@ header.baheader .logo {
     top: 0;
     display: inline-block;
     width: 211px;
-    height: 70px
+    height: 70px;
+    display: none;
+    left: 0;
 }
 
 header.baheader a {
