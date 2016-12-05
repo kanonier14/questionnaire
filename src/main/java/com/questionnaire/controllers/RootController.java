@@ -1,7 +1,10 @@
 package com.questionnaire.controllers;
 
 import com.questionnaire.core.Constants;
+import com.questionnaire.entity.sessionentity.LoginState;
 import com.questionnaire.repository.QuestionnaireRepository;
+import com.questionnaire.services.SessionCache;
+import com.questionnaire.services.VkOAuthService;
 import com.vk.api.sdk.client.TransportClient;
 import com.vk.api.sdk.client.VkApiClient;
 import com.vk.api.sdk.client.actors.UserActor;
@@ -28,6 +31,10 @@ public class RootController {
 
     @Autowired
     private QuestionnaireRepository questionnaireRepository;
+    @Autowired
+    private VkOAuthService vkOAuthService;
+    @Autowired
+    private SessionCache sessionCache;
 
     @RequestMapping("/")
     public String getMainPage(Model model) {
@@ -43,12 +50,13 @@ public class RootController {
     @RequestMapping(path = "/authorization/user")
     public String getAuthentication(HttpServletRequest request, HttpServletResponse response) throws ClientException, ApiException {
         String code = request.getParameter("code");
-        TransportClient transportClient = HttpTransportClient.getInstance();
-        VkApiClient vk = new VkApiClient(transportClient);
+        VkApiClient vk = vkOAuthService.getApiClient();
         UserAuthResponse authResponse = vk.oauth()
                 .userAuthorizationCodeFlow(Integer.valueOf(Constants.ID_APPLICATION), Constants.KEY_APPLICATION, "http://localhost:8080/authorization/user", code)
                 .execute();
         UserActor actor = new UserActor(authResponse.getUserId(), authResponse.getAccessToken());
+        LoginState loginState = new LoginState(authResponse.getUserId(), authResponse.getAccessToken());
+        sessionCache.put(request, loginState);
         UserXtrCounters user = vk.users().get(actor).nameCase(UsersNameCase.NOMINATIVE).execute().get(0);
         return "index";
     }
