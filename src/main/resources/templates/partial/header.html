@@ -7,11 +7,10 @@
             <li >
                 <a href="/">Главная страница</a>
             </li>
-            <span th:text="${session.LoginState}">Test</span>
-            <li >
+            <li th:if="${session.authenticate}">
                 <a href="/personalaccount">Личный кабинет</a>
             </li>
-            <li >
+            <li th:if="${session.authenticate == null}">
                 <a href="/authorize">Войти</a>
             </li>
         </ul>

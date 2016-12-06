@@ -48,7 +48,7 @@ public class RootController {
     }
 
     @RequestMapping(path = "/authorization/user")
-    public String getAuthentication(HttpServletRequest request, HttpServletResponse response) throws ClientException, ApiException {
+    public void getAuthentication(HttpServletRequest request, HttpServletResponse response) throws ClientException, ApiException, IOException {
         String code = request.getParameter("code");
         VkApiClient vk = vkOAuthService.getApiClient();
         UserAuthResponse authResponse = vk.oauth()
@@ -57,8 +57,8 @@ public class RootController {
         UserActor actor = new UserActor(authResponse.getUserId(), authResponse.getAccessToken());
         LoginState loginState = new LoginState(authResponse.getUserId(), authResponse.getAccessToken());
         sessionCache.put(request, loginState);
-        UserXtrCounters user = vk.users().get(actor).nameCase(UsersNameCase.NOMINATIVE).execute().get(0);
-        return "index";
+        request.getSession().setAttribute("authenticate", true);
+        response.sendRedirect("/");
     }
 
     @RequestMapping(path = "/authorize")
