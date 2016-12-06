@@ -5,11 +5,14 @@ import com.questionnaire.entity.Questionnaire;
 import com.questionnaire.entity.SimpleAnswer;
 import com.questionnaire.entity.SimpleQuestion;
 import com.questionnaire.entity.results.QuestionnaireResults;
+import com.questionnaire.entity.sessionentity.LoginState;
 import com.questionnaire.repository.AnswerToQuestionRepository;
 import com.questionnaire.repository.QuestionnaireRepository;
 import com.questionnaire.repository.SimpleAnswerRepository;
 import com.questionnaire.repository.SimpleQuestionRepository;
+import com.questionnaire.repository.UserRepository;
 import com.questionnaire.services.QuestionnaireService;
+import com.questionnaire.services.SessionCache;
 import com.questionnaire.services.SimpleQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,6 +47,10 @@ public class QuestionnaireController {
     private SimpleQuestionService simpleQuestionService;
     @Autowired
     private QuestionnaireService questionnaireService;
+    @Autowired
+    private SessionCache sessionCache;
+    @Autowired
+    private UserRepository userRepository;
 
 
     @RequestMapping(path = "/create", method = RequestMethod.GET)
@@ -55,9 +62,13 @@ public class QuestionnaireController {
     public void saveQuestionnaire(HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<SimpleQuestion> questions = simpleQuestionService.createQuestionsFromRequestParameters(request.getParameterMap());
         String questionnaireTitle = request.getParameter("title");
+        boolean gated = request.getParameter("gated") != null;
         Questionnaire questionnaire = new Questionnaire();
+        questionnaire.setGated(gated);
         questionnaire.setTitle(questionnaireTitle);
         questionnaire.setQuestions(questions);
+        LoginState loginState = (LoginState) sessionCache.get(request, LoginState.class);
+        questionnaire.setAuthor(userRepository.findByVkontakteId(loginState.getVkId()));
         questionnaireRepository.save(questionnaire);
         response.sendRedirect("/");
     }

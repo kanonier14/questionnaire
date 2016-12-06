@@ -11,7 +11,10 @@
                 <a href="/personalaccount">Личный кабинет</a>
             </li>
             <li th:if="${session.authenticate == null}">
-                <a href="/authorize">Войти</a>
+                <a href="/user/authorize">Войти</a>
+            </li>
+            <li th:if="${session.authenticate}">
+                <a href="/user/logout">Выйти</a>
             </li>
         </ul>
     </div>

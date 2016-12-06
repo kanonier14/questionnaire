@@ -15,8 +15,13 @@ public class Questionnaire {
 
     private String title;
 
+     private boolean gated;
+
     @DBRef
     private List<SimpleQuestion> questions;
+
+    @DBRef
+    private User author;
 
     public List<SimpleQuestion> getQuestions() {
         return questions;
@@ -24,6 +29,22 @@ public class Questionnaire {
 
     public void setQuestions(List<SimpleQuestion> questions) {
         this.questions = questions;
+    }
+
+    public boolean isGated() {
+        return gated;
+    }
+
+    public void setGated(boolean gated) {
+        this.gated = gated;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public Questionnaire() {
