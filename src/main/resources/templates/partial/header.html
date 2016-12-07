@@ -16,6 +16,9 @@
             <li th:if="${session.authenticate}">
                 <a href="/user/logout">Выйти</a>
             </li>
+            <li class="header__user-name" th:if="${session.authenticate}">
+                Здравствуйте, <span th:text="${session.userName}"/>
+            </li>
         </ul>
     </div>
 </header>

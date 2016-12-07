@@ -1,0 +1,11 @@
+<div class="wrapper">
+    <div>
+        <span th:each="questionnaire : ${questionnaires}">
+            <a class="questionnaire_list_item_link" th:href="@{/questionnaire/results(id=${questionnaire.idQuestionnaire})}">
+                <div class="questionnaire_list_item">
+                    <div class="questionnaire_list_item__title" th:text="${questionnaire.title}"/>
+                </div>
+            </a>
+        </span>
+    </div>
+</div>

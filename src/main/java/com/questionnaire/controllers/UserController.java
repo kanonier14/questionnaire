@@ -10,6 +10,7 @@ import com.vk.api.sdk.client.actors.UserActor;
 import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 import com.vk.api.sdk.objects.UserAuthResponse;
+import com.vk.api.sdk.objects.users.UserXtrCounters;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,6 +49,9 @@ public class UserController {
         LoginState loginState = new LoginState(authResponse.getUserId(), authResponse.getAccessToken());
         sessionCache.put(request, loginState);
         request.getSession().setAttribute("authenticate", true);
+        UserXtrCounters userInfo = vk.users().get(actor).execute().get(0);
+        request.getSession().setAttribute("userName", userInfo.getLastName() + " " + userInfo.getFirstName());
+        userService.saveUser(authResponse.getUserId());
         response.sendRedirect("/");
     }
 

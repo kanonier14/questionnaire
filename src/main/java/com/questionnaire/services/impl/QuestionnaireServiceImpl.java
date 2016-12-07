@@ -51,6 +51,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
                     return questionResult;
                 }).collect(Collectors.toList());
         questionnaireResults.setQuestions(questions);
+        questionnaireResults.setId(id);
         return questionnaireResults;
     }
 }

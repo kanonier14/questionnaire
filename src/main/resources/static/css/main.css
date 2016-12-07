@@ -294,6 +294,10 @@ footer {
 .required_field_red {
     border: 1px solid  #FF0000 !important;
 }
+
+.header__user-name {
+    color: 	#DEB887;
+}
 /*===========================================================FOOTER====================================*/
 footer .container {
     padding: 27px 21px

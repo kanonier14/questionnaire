@@ -68,6 +68,7 @@ public class QuestionnaireController {
         questionnaire.setTitle(questionnaireTitle);
         questionnaire.setQuestions(questions);
         LoginState loginState = (LoginState) sessionCache.get(request, LoginState.class);
+
         questionnaire.setAuthor(userRepository.findByVkontakteId(loginState.getVkId()));
         questionnaireRepository.save(questionnaire);
         response.sendRedirect("/");
@@ -105,5 +106,13 @@ public class QuestionnaireController {
         QuestionnaireResults questionnaireResults = questionnaireService.getResults(idQuestionnaire);
         model.addAttribute("questionnaire", questionnaireResults);
         return "resultsquestionnaire";
+    }
+
+    @RequestMapping(path = "/remove", params = "id", method = RequestMethod.GET)
+    public void removeQuestionnaire(Model model, HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        String idQuestionnaire = request.getParameter("id");
+        questionnaireRepository.delete(idQuestionnaire);
+        response.sendRedirect("/personalaccount");
     }
 }

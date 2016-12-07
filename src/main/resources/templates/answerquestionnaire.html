@@ -10,11 +10,6 @@
 <div>
     <div class="questionnaire_answer_form">
         <h1 class="questionnaire_answer_form__title" th:text="${questionnaire.title}"/>
-        <div>
-            <a th:href="@{/questionnaire/results(id=${questionnaire.idQuestionnaire})}">
-                Результаты.
-            </a>
-        </div>
         <form action="/questionnaire/answer" method="post">
             <input name="idQuestionnaire" type="hidden" th:value="${questionnaire.idQuestionnaire}"/>
             <div class="questionnaire_answer_form__question" th:each="question : ${questionnaire.questions}">
