@@ -2,7 +2,10 @@ package com.questionnaire.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -15,13 +18,25 @@ public class Questionnaire {
 
     private String title;
 
-     private boolean gated;
+    private boolean gated;
+
+    private long creationDate;
 
     @DBRef
     private List<SimpleQuestion> questions;
 
     @DBRef
     private User author;
+
+
+
+    public long getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(long creationDate) {
+        this.creationDate = creationDate;
+    }
 
     public List<SimpleQuestion> getQuestions() {
         return questions;

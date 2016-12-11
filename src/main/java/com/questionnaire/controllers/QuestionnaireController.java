@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -70,6 +72,8 @@ public class QuestionnaireController {
         LoginState loginState = (LoginState) sessionCache.get(request, LoginState.class);
 
         questionnaire.setAuthor(userRepository.findByVkontakteId(loginState.getVkId()));
+        questionnaire.setCreationDate(new Date().getTime());
+
         questionnaireRepository.save(questionnaire);
         response.sendRedirect("/");
     }

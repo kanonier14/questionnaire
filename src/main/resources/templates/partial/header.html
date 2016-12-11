@@ -4,12 +4,14 @@
         <ul class="topNav">
             <li >
                 <a href="/">Главная страница</a>
-            </li>
+            </li><li >
+            <a href="/questionnaries">Анкеты</a>
+        </li>
             <li th:if="${session.authenticate}">
                 <a href="/personalaccount">Личный кабинет</a>
             </li>
             <li th:if="${session.authenticate == null}">
-                <a href="/user/authorize">Войти</a>
+                <a href="/user/authorize">VK login</a>
             </li>
             <li th:if="${session.authenticate}">
                 <a href="/user/logout">Выйти</a>

@@ -67,4 +67,9 @@ public class RootController {
     }
 
 
+
+    @RequestMapping("/questionnaries")
+    public String getQuestionnairePage() {
+        return "questionnaries";
+    }
 }
