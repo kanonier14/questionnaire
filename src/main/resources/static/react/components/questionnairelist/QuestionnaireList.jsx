@@ -17,6 +17,21 @@ var QuestionnaireList = React.createClass({
             .then(function(result){
                 self.setState({questionnaries: result.questionnaires});
                 self.setState({pagesCount: result.pagesCount});
+                self.setState({currentPage: 1});
+            });
+    },
+
+    loadPage: function(event) {
+        let requestedPage = event.currentTarget.dataset.pagenumber;
+        var self = this;
+        self.setState({currentPage: requestedPage});
+        let promise = fetch('/questionnaires/get?pagenumber=' + requestedPage)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(result){
+                self.setState({questionnaries: result.questionnaires});
+                self.setState({pagesCount: result.pagesCount});
             });
     },
 
@@ -25,7 +40,7 @@ var QuestionnaireList = React.createClass({
             return <QuestionnaireItem key={item.idQuestionnaire} idQuestionnaire={item.idQuestionnaire} title={item.title}/>;
         });
 
-        let PaginatorElement = this.state.pagesCount > 0 ? <Paginator countPages={this.state.pagesCount}/> : '';
+        let PaginatorElement = this.state.pagesCount > 0 ? <Paginator currentPage={this.state.currentPage} loadPage={this.loadPage} countPages={this.state.pagesCount}/> : '';
         return(
             <div className="wrapper">
                 <ContentHeader/>

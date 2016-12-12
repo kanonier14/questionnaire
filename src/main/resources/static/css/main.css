@@ -309,6 +309,49 @@ header {
 .header__user-name {
     color: 	#DEB887;
 }
+
+.paginator {
+    bottom: 10px;
+    position: absolute;
+}
+
+.questionnaire-list,.questionnaire-list .wrapper {
+    height: 100%;
+}
+
+.paginator__page-item {
+    display: inline-block;
+    text-align: center;
+    height: 40px;
+    width: 40px;
+    background-color: #FAEBD7;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    padding-top: 10px;
+    border: 1px solid #2E8B57;
+}
+
+.paginator__page-item:hover, paginator__page-item--current:hover {
+    background-color: #7FFFD4;
+}
+
+.paginator__page-item--current {
+    text-align: center;
+    height: 40px;
+    width: 40px;
+    background-color:  #98FB98;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    padding-top: 10px;
+    border: 1px solid #2E8B57;
+}
+
+.link_paginator {
+    display: inline-block;
+    text-decoration: none;
+}
 /*===========================================================FOOTER====================================*/
 footer .container {
     padding: 27px 21px
