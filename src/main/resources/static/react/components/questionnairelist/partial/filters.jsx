@@ -1,7 +1,7 @@
 var Filters = React.createClass({
     render: function() {
         return(
-            <div>Filters.</div>
+            <div className="questionnaire-list__filters">Filters.</div>
         );
     }
 });

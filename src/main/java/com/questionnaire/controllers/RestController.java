@@ -1,14 +1,18 @@
 package com.questionnaire.controllers;
 
 import com.questionnaire.entity.Questionnaire;
+import com.questionnaire.entity.sessionentity.LoginState;
 import com.questionnaire.repository.QuestionnaireRepository;
 
+import com.questionnaire.services.FilterService;
+import com.questionnaire.services.SessionCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,10 +24,12 @@ public class RestController {
 
     @Autowired
     QuestionnaireRepository questionnaireRepository;
+    @Autowired
+    FilterService filterService;
 
     @RequestMapping("/questionnaires/get")
     public QuestionnaireResult getQuestionnaires(HttpServletRequest request) {
-        List<Questionnaire> questionnaires = questionnaireRepository.findAll();
+        List<Questionnaire> questionnaires = filterService.filterAuthQuestionnaire(request);
         QuestionnaireResult result = new QuestionnaireResult();
         Integer requestedPage;
         if (request.getParameter("pagenumber") != null) {
@@ -41,7 +47,9 @@ public class RestController {
                     return 1;
                 } else return -1;
             });
-            result.setQuestionnaires(questionnaires.subList(0,9));
+            int fromIndex = 0;
+            int toIndex = questionnaires.size() > 9 ? 9 : questionnaires.size();
+            result.setQuestionnaires(questionnaires.subList(fromIndex, toIndex));
         }
 
         result.setPagesCount((int) Math.ceil(questionnaires.size() / 9.0));

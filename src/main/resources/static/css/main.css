@@ -21,7 +21,7 @@ header {
 
 .main-content {
     height: 80%;
-    rgb(237, 238, 240);
+    background-color: rgb(237, 238, 240);
 }
 
 .questionnaire-edit--header {
@@ -201,11 +201,24 @@ header {
     border-radius: 4px;
 }
 
+.questionnaire-list__items {
+    height: 70%;
+}
+
+.questionnaire-list__content-header {
+    height:10%;
+}
+
+.questionnaire-list__filters {
+    height: 10%;
+}
+
 .questionnaire_list_item {
+    cursor: pointer;
     width: 32%;
     margin-right: 1%;
     margin-bottom: 20px;
-    height: 200px;
+    height: 28%;
     background-color: #ffffff;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -216,10 +229,14 @@ header {
     background-size: auto 200px;
 }
 
+.questionnaire-list__content_header__title {
+    margin: 0;
+}
+
 .questionnaire_list_item__title {
     text-align: center;
     background-color: rgba(0,0,0,0.2);
-    height: 200px;
+    height: 100%;
     padding-top: 20px;
     font-size: 18px;
     color: white;
@@ -229,7 +246,7 @@ header {
     height: 200px;
 }
 
-.questionnaire_list_item_link:focus, questionnaire_list_item_link:hover {
+.questionnaire_list_item:focus, questionnaire_list_item:hover {
     text-decoration: none;
 }
 

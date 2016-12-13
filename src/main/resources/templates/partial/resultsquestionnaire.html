@@ -1,12 +1,13 @@
 <div>
     <div th:text="${questionnaire.title}"/>
     <div th:each="question : ${questionnaire.questions}">
-        <div class="question__result">
+        <div class="question__result" data-resultComponent="QuestionResult">
             <div th:text="${question.title}"/>
-            <div th:each="answer : ${question.answers}">
+            <div class="question-result__answer" th:each="answer : ${question.answers}">
                 <div>
-                    <span th:text="${answer.title}"/>
-                    Количество голосов: <span th:text="${answer.number}"/>
+                    <input type="hidden" name="title" th:value="${answer.title}"/>
+                    <input type="hidden" name="countVotes" th:value="${answer.number}"/>
+                    <div class="chart" style="width: 500px; height: 400px;"></div>
                 </div>
             </div>
         </div>

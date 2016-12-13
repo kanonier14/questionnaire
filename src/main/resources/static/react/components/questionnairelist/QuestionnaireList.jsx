@@ -45,7 +45,7 @@ var QuestionnaireList = React.createClass({
             <div className="wrapper">
                 <ContentHeader/>
                 <Filters/>
-                <div>
+                <div className="questionnaire-list__items">
                     {Questionnaries}
                 </div>
                 {PaginatorElement}
