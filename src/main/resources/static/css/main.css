@@ -369,6 +369,16 @@ header {
     display: inline-block;
     text-decoration: none;
 }
+
+.chart {
+    width: 50%;
+    display: inline-block;
+}
+
+.question-result__answers-block {
+    width: 49%;
+    display: inline-block;
+}
 /*===========================================================FOOTER====================================*/
 footer .container {
     padding: 27px 21px

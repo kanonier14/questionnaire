@@ -22,7 +22,7 @@ var application = {
         var questions = document.querySelectorAll('[data-resultComponent]');
         questions.forEach(function(elem) {
             var Answers = [['Ответ', 'Голосов']];
-            elem.querySelectorAll('.question-result__answer').forEach(function(elem) {
+            elem.querySelectorAll('.question-result__answer-data--hidden').forEach(function(elem) {
                 let answerTitle = elem.querySelectorAll('[name=title]')[0].value;
                 let answerResult = parseInt(elem.querySelectorAll('[name=countVotes]')[0].value);
                 let answerRow = [answerTitle, answerResult];
