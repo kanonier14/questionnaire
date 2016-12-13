@@ -1,12 +1,12 @@
 <header class="baheader header">
-    <img class="logo" src="/images/logo.jpg"/>
+    <a class="logo" href="/">
+        <img class="logo" src="/images/logo.jpg"/>
+    </a>
     <div class="container clearfix">
         <ul class="topNav">
             <li >
-                <a href="/">Главная страница</a>
-            </li><li >
-            <a href="/questionnaries">Анкеты</a>
-        </li>
+                <a href="/questionnaries">Анкеты</a>
+            </li>
             <li th:if="${session.authenticate}">
                 <a href="/personalaccount">Личный кабинет</a>
             </li>

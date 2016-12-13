@@ -52,7 +52,7 @@ public class UserController {
         UserXtrCounters userInfo = vk.users().get(actor).execute().get(0);
         request.getSession().setAttribute("userName", userInfo.getLastName() + " " + userInfo.getFirstName());
         userService.saveUser(authResponse.getUserId());
-        response.sendRedirect("/");
+        response.sendRedirect("/personalaccount");
     }
 
     @RequestMapping(path = "/authorize")

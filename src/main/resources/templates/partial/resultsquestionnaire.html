@@ -1,9 +1,24 @@
-<div class="questionnaire-page-left-column"></div>
+<div class="questionnaire-page-left-column">
+    <div class="newsurvey results">
+        <a th:href="@{/questionnaire/remove(id=${questionnaire.id})}" class="newitem">Удалить анкету</a>
+    </div>
+    <div class="newsurvey results">
+        <a class="newitem">Остановить голосование</a>
+    </div>
+    <div class="newsurvey results">
+        <a class="newitem">Запустить голосование</a>
+    </div>
+</div>
 <div class="questionnaire-form-wrapper">
-    <div th:text="${questionnaire.title}"/>
+    <div class="content_header questionnaire-list__content-header">
+        <h1 class="content_header__title questionnaire-list__content_header__title" th:text="${questionnaire.title}">
+        </h1>
+    </div>
     <div th:each="question : ${questionnaire.questions}">
-        <div data-resultComponent="QuestionResult">
-            <div class="question-edit-form__text" th:text="${question.title}"></div>
+        <div class="question-result-wrapper" data-resultComponent="QuestionResult">
+            <div class="question-edit-form__text content_header questionnaire-list__content-header">
+                <h3 class="content_header__title questionnaire-list__content_header__title" th:text="${question.title}"/>
+            </div>
             <div class="chart"></div>
             <div class="question-edit-form__answers question-result__answers-block">
                 <div class="question-result__answer-data--hidden" th:each="answer : ${question.answers}">
@@ -16,9 +31,7 @@
                 </div>
             </div>
         </div>
-
     </div>
-    <a th:href="@{/questionnaire/remove(id=${questionnaire.id})}">Удалить</a>
 </div>
 
 <!--

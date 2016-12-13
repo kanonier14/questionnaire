@@ -2,6 +2,10 @@ html, body {
     height: 100%;
 }
 
+body {
+    background-color: rgb(237, 238, 240);
+}
+
 a {
     cursor: pointer;
     text-decoration: none;
@@ -13,6 +17,8 @@ a {
 
 footer {
     height:10%;
+    background-image: url(/images/footer.png);
+    min-width: 1000px;
 }
 
 header {
@@ -21,7 +27,6 @@ header {
 
 .main-content {
     height: 80%;
-    background-color: rgb(237, 238, 240);
 }
 
 .questionnaire-edit--header {
@@ -231,6 +236,8 @@ header {
 
 .questionnaire-list__content_header__title {
     margin: 0;
+    margin-top: 5px;
+    width: 100%;
 }
 
 .questionnaire_list_item__title {
@@ -301,6 +308,7 @@ header {
     padding: 25px 0;
     overflow: hidden;
     border-bottom: 1px solid #ccc;
+    margin-bottom: 5px;
 }
 
 .content_header__title {
@@ -310,6 +318,7 @@ header {
     font-weight: 900;
     font-size: 18px;
     float: left;
+    text-align: center;
 }
 
 .questionnaire-edit--header .newsurvey {
@@ -373,11 +382,37 @@ header {
 .chart {
     width: 50%;
     display: inline-block;
+    border-left: 1px solid #ccc;
 }
 
+.newsurvey.results {
+    position: relative;
+    top: 15px;
+    left: 10px;
+    float: left;
+    height: 60px;
+    width: 80%;
+    margin: 20px;
+    text-align: center;
+}
+.newsurvey.results .newitem {
+    width: 100%;
+}
 .question-result__answers-block {
     width: 49%;
     display: inline-block;
+    float: left;
+}
+
+.question-result-wrapper {
+    border: 2px solid #D2B48C;
+    padding: 5px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    background-color: #fafafa;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
 }
 /*===========================================================FOOTER====================================*/
 footer .container {
@@ -408,7 +443,7 @@ footer a:hover {
 }
 
 footer .footer-top {
-    background: #2c3e50;
+    //background: #2c3e50;
     min-width: 1000px
 }
 
@@ -571,6 +606,10 @@ header.baheader .logo {
     display: inline-block;
     height: 70px;
     left: 0;
+}
+
+a.logo {
+    z-index: 1;
 }
 
 header.baheader a {

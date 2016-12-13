@@ -40,7 +40,7 @@ var QuestionnaireList = React.createClass({
             return <QuestionnaireItem key={item.idQuestionnaire} idQuestionnaire={item.idQuestionnaire} title={item.title}/>;
         });
 
-        let PaginatorElement = this.state.pagesCount > 0 ? <Paginator currentPage={this.state.currentPage} loadPage={this.loadPage} countPages={this.state.pagesCount}/> : '';
+        let PaginatorElement = this.state.pagesCount > 1 ? <Paginator currentPage={this.state.currentPage} loadPage={this.loadPage} countPages={this.state.pagesCount}/> : '';
         return(
             <div className="wrapper">
                 <ContentHeader/>
