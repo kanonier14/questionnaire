@@ -93,6 +93,7 @@ header {
 .questionnaire-page-left-column {
     width: 24%;
     display: inline-block;
+    vertical-align: top;
 }
 
 .header {
@@ -396,7 +397,7 @@ header {
     text-align: center;
 }
 .newsurvey.results .newitem {
-    width: 100%;
+    width: 80% !important;
 }
 .question-result__answers-block {
     width: 49%;

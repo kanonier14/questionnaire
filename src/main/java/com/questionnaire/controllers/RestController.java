@@ -29,7 +29,9 @@ public class RestController {
 
     @RequestMapping("/questionnaires/get")
     public QuestionnaireResult getQuestionnaires(HttpServletRequest request) {
-        List<Questionnaire> questionnaires = filterService.filterAuthQuestionnaire(request);
+        String topic = request.getParameter("topic");
+        String dateOrder = request.getParameter("dateOrder");
+        List<Questionnaire> questionnaires = filterService.filterAuthQuestionnaire(request, topic, dateOrder);
         QuestionnaireResult result = new QuestionnaireResult();
         Integer requestedPage;
         if (request.getParameter("pagenumber") != null) {
@@ -39,14 +41,6 @@ public class RestController {
             result.setQuestionnaires(questionnaires.subList(fromIndex, toIndex));
         }
         if (request.getParameterMap().size() == 0) {
-            Collections.sort(questionnaires, (o1, o2) -> {
-                long resCompare = o1.getCreationDate() - o2.getCreationDate();
-                if (resCompare == 0) {
-                    return 0;
-                } else if (resCompare > 0) {
-                    return 1;
-                } else return -1;
-            });
             int fromIndex = 0;
             int toIndex = questionnaires.size() > 9 ? 9 : questionnaires.size();
             result.setQuestionnaires(questionnaires.subList(fromIndex, toIndex));

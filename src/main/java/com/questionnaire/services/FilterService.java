@@ -10,5 +10,6 @@ import java.util.List;
  */
 public interface FilterService {
 
-    List<Questionnaire> filterAuthQuestionnaire(HttpServletRequest request);
+    List<Questionnaire> filterAuthQuestionnaire(HttpServletRequest request, String topic,
+                                                String dateOrder);
 }

@@ -1,5 +1,7 @@
 package com.questionnaire.entity;
 
+import com.questionnaire.core.Topic;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,6 +23,8 @@ public class Questionnaire {
     private boolean gated;
 
     private long creationDate;
+
+    private Topic topic;
 
     @DBRef
     private List<SimpleQuestion> questions;
@@ -80,5 +84,13 @@ public class Questionnaire {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
     }
 }

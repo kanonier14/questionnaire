@@ -26,7 +26,15 @@ var CreateQuestionnaireForm = React.createClass({
         });
         return(
             <form method="post" action="/questionnaire/save">
-                <div><span>Сделать анкету приватной: </span><input type="checkbox" name="gated"/></div>
+                <div>
+                    <span>Сделать анкету приватной: </span><input type="checkbox" name="gated"/>
+                    <select name="topic">
+                        <option value="SPORT">Спорт</option>
+                        <option value="SOCIETY">Общество</option>
+                        <option value="ART">Искусство</option>
+                        <option value="OTHER">Остальное</option>
+                    </select>
+                </div>
                 <QuestionnaireEditHeader/>
                 <div>
                     <QuestionTypeSwitcher addQuestion={this.addQuestion}/>

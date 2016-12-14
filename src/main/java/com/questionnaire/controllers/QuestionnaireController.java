@@ -1,5 +1,6 @@
 package com.questionnaire.controllers;
 
+import com.questionnaire.core.Topic;
 import com.questionnaire.entity.AnswerToQuestion;
 import com.questionnaire.entity.Questionnaire;
 import com.questionnaire.entity.SimpleAnswer;
@@ -73,6 +74,7 @@ public class QuestionnaireController {
 
         questionnaire.setAuthor(userRepository.findByVkontakteId(loginState.getVkId()));
         questionnaire.setCreationDate(new Date().getTime());
+        questionnaire.setTopic(Topic.valueOf(request.getParameter("topic")));
 
         questionnaireRepository.save(questionnaire);
         response.sendRedirect("/");
