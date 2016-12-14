@@ -21,12 +21,14 @@ var CreateQuestionForm = React.createClass({
     render: function() {
         let title_name = this.props.name + '_title';
         let type_name = this.props.name + '_type';
-        let removeAnswer = this.removeAnswer
+        let removeAnswer = this.removeAnswer;
+        let type = this.props.type;
         let answers = this.state.answers.map(function (item) {
             return <AnswerEditRadioButton key={item.name} name={item.name} removeAnswer={removeAnswer}/>;
         });
         return(
             <div className="question-edit-form">
+                <div>Тип вопроса: {type}</div>
                 <div className="remove_question_button" data-questionname={this.props.name} onClick={this.props.removeQuestion}>X</div>
                 <textarea data-required name={title_name} className="question-edit-form__text" placeholder="Введите текст вопроса"></textarea>
                 <input data-required type="hidden" name={type_name} value={this.props.type}/>

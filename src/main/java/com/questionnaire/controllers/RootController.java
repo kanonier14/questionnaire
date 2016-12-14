@@ -2,10 +2,12 @@ package com.questionnaire.controllers;
 
 import com.questionnaire.core.Constants;
 import com.questionnaire.entity.Questionnaire;
+import com.questionnaire.entity.results.QuestionnaireResults;
 import com.questionnaire.entity.sessionentity.LoginState;
 import com.questionnaire.repository.QuestionnaireRepository;
 import com.questionnaire.repository.UserRepository;
 import com.questionnaire.services.SessionCache;
+import com.questionnaire.services.UserService;
 import com.questionnaire.services.VkOAuthService;
 import com.vk.api.sdk.client.TransportClient;
 import com.vk.api.sdk.client.VkApiClient;
@@ -39,6 +41,8 @@ public class RootController {
     private UserRepository userRepository;
     @Autowired
     private SessionCache sessionCache;
+    @Autowired
+    private UserService userService;
 
 
     @RequestMapping("/")
@@ -59,11 +63,16 @@ public class RootController {
     }
 
     @RequestMapping(path = "/personalaccount")
-    public String getPersonalAccountPage(Model model, HttpServletRequest request) {
-        LoginState loginState = (LoginState) sessionCache.get(request, LoginState.class);
-        List<Questionnaire> questionnaires = questionnaireRepository.findByAuthor(userRepository.findByVkontakteId(loginState.getVkId()));
-        model.addAttribute("questionnaires", questionnaires);
-        return "personalaccount";
+    public String getPersonalAccountPage(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (userService.isAuthenticate(request)) {
+            LoginState loginState = (LoginState) sessionCache.get(request, LoginState.class);
+            List<Questionnaire> questionnaires = questionnaireRepository.findByAuthor(userRepository.findByVkontakteId(loginState.getVkId()));
+            model.addAttribute("questionnaires", questionnaires);
+            return "personalaccount";
+        } else {
+            response.sendRedirect("/user/authorize");
+            return "index";
+        }
     }
 
 

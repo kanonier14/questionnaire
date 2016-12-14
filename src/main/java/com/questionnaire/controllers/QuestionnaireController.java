@@ -16,6 +16,7 @@ import com.questionnaire.repository.UserRepository;
 import com.questionnaire.services.QuestionnaireService;
 import com.questionnaire.services.SessionCache;
 import com.questionnaire.services.SimpleQuestionService;
+import com.questionnaire.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,30 +56,41 @@ public class QuestionnaireController {
     private SessionCache sessionCache;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
 
 
     @RequestMapping(path = "/create", method = RequestMethod.GET)
-    public String getCreateQUestionnairePage() {
-        return "createquestionnaire";
+    public String getCreateQUestionnairePage(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (userService.isAuthenticate(request)) {
+            return "createquestionnaire";
+        } else {
+            response.sendRedirect("/user/authorize");
+            return "index";
+        }
     }
 
     @RequestMapping(path = "/save", method = RequestMethod.POST)
     public void saveQuestionnaire(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<SimpleQuestion> questions = simpleQuestionService.createQuestionsFromRequestParameters(request.getParameterMap());
-        String questionnaireTitle = request.getParameter("title");
-        boolean gated = request.getParameter("gated") != null;
-        Questionnaire questionnaire = new Questionnaire();
-        questionnaire.setGated(gated);
-        questionnaire.setTitle(questionnaireTitle);
-        questionnaire.setQuestions(questions);
-        LoginState loginState = (LoginState) sessionCache.get(request, LoginState.class);
+        if (userService.isAuthenticate(request)) {
+            List<SimpleQuestion> questions = simpleQuestionService.createQuestionsFromRequestParameters(request.getParameterMap());
+            String questionnaireTitle = request.getParameter("title");
+            boolean gated = request.getParameter("gated") != null;
+            Questionnaire questionnaire = new Questionnaire();
+            questionnaire.setGated(gated);
+            questionnaire.setTitle(questionnaireTitle);
+            questionnaire.setQuestions(questions);
+            LoginState loginState = (LoginState) sessionCache.get(request, LoginState.class);
 
-        questionnaire.setAuthor(userRepository.findByVkontakteId(loginState.getVkId()));
-        questionnaire.setCreationDate(new Date().getTime());
-        questionnaire.setTopic(Topic.valueOf(request.getParameter("topic")));
+            questionnaire.setAuthor(userRepository.findByVkontakteId(loginState.getVkId()));
+            questionnaire.setCreationDate(new Date().getTime());
+            questionnaire.setTopic(Topic.valueOf(request.getParameter("topic")));
 
-        questionnaireRepository.save(questionnaire);
-        response.sendRedirect("/questionnaire/results?id=" + questionnaire.getIdQuestionnaire());
+            questionnaireRepository.save(questionnaire);
+            response.sendRedirect("/questionnaire/results?id=" + questionnaire.getIdQuestionnaire());
+        } else {
+            response.sendRedirect("/user/authorize");
+        }
     }
 
     @RequestMapping(path = "/answer", params = "id", method = RequestMethod.GET)
@@ -108,11 +120,16 @@ public class QuestionnaireController {
     }
 
     @RequestMapping(path = "/results", params = "id", method = RequestMethod.GET)
-    public String getQuestionnaireResults(Model model, HttpServletRequest request, HttpServletResponse response) {
-        String idQuestionnaire = request.getParameter("id");
-        QuestionnaireResults questionnaireResults = questionnaireService.getResults(idQuestionnaire);
-        model.addAttribute("questionnaire", questionnaireResults);
-        return "resultsquestionnaire";
+    public String getQuestionnaireResults(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (userService.isAuthenticate(request)) {
+            String idQuestionnaire = request.getParameter("id");
+            QuestionnaireResults questionnaireResults = questionnaireService.getResults(idQuestionnaire);
+            model.addAttribute("questionnaire", questionnaireResults);
+            return "resultsquestionnaire";
+        } else {
+            response.sendRedirect("/user/authorize");
+            return "index";
+        }
     }
 
     @RequestMapping(path = "/setstate", method = RequestMethod.GET)

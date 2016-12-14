@@ -4,6 +4,7 @@ html, body {
 
 body {
     background-color: rgb(237, 238, 240);
+    color: #285473;
 }
 
 a {
@@ -414,6 +415,33 @@ header {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 13px;
     font-weight: bold;
+}
+
+.main-page-welcome-message {
+    height: 38%;
+    width: 80%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+        color: rgba(48,98,152,1);
+        font-family: Merriweather, serif;
+        font-size: 55px;
+        line-height: 70px;
+        font-weight: bold;
+        font-style: italic;
+}
+
+.main-page-items {
+    width: 90%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.main-page-welcome-message__item {
+    width: 33%;
+    display: inline-block;
+    color: #285473;
 }
 /*===========================================================FOOTER====================================*/
 footer .container {

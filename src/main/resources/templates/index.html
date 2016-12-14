@@ -9,11 +9,11 @@
     <div class="body_wrapper">
         <div th:replace="partial/header"/>
         <div class="main-content">
-            <div>Добро пожаловать</div>
-            <div>
-                <div>Можете создавать</div>
-                <div>Смотреть результаты</div>
-                <div>Отвечать на опросы</div>
+            <div class="main-page-welcome-message">Добро пожаловать на наш сайт. Здесь Вы можете:</div>
+            <div class="main-page-items">
+                <div class="main-page-welcome-message__item">Можете создавать опросы</div>
+                <div class="main-page-welcome-message__item">Смотреть результаты ваших опросов в удобной форме</div>
+                <div class="main-page-welcome-message__item">...а также отвечать на опросы других пользователей.</div>
             </div>
         </div>
         <div th:replace="partial/footer"/>
