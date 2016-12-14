@@ -52,6 +52,11 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
                 }).collect(Collectors.toList());
         questionnaireResults.setQuestions(questions);
         questionnaireResults.setId(id);
+        if (requestedQuestionnaire.getState() == null) {
+            questionnaireResults.setState("NOT_STARTED");
+        } else {
+            questionnaireResults.setState(requestedQuestionnaire.getState().name());
+        };
         return questionnaireResults;
     }
 }

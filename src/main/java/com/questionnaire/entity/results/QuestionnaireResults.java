@@ -10,6 +10,7 @@ public class QuestionnaireResults {
     private String id;
     private String title;
     private List<Question> questions;
+    private String state;
 
     public List<Question> getQuestions() {
         return questions;
@@ -37,5 +38,13 @@ public class QuestionnaireResults {
 
     public QuestionnaireResults() {
 
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

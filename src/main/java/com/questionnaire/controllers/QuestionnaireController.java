@@ -1,5 +1,6 @@
 package com.questionnaire.controllers;
 
+import com.questionnaire.core.State;
 import com.questionnaire.core.Topic;
 import com.questionnaire.entity.AnswerToQuestion;
 import com.questionnaire.entity.Questionnaire;
@@ -77,7 +78,7 @@ public class QuestionnaireController {
         questionnaire.setTopic(Topic.valueOf(request.getParameter("topic")));
 
         questionnaireRepository.save(questionnaire);
-        response.sendRedirect("/");
+        response.sendRedirect("/questionnaire/results?id=" + questionnaire.getIdQuestionnaire());
     }
 
     @RequestMapping(path = "/answer", params = "id", method = RequestMethod.GET)
@@ -114,11 +115,22 @@ public class QuestionnaireController {
         return "resultsquestionnaire";
     }
 
-    @RequestMapping(path = "/remove", params = "id", method = RequestMethod.GET)
+    @RequestMapping(path = "/setstate", method = RequestMethod.GET)
     public void removeQuestionnaire(Model model, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         String idQuestionnaire = request.getParameter("id");
-        questionnaireRepository.delete(idQuestionnaire);
+        String newState = request.getParameter("state");
+        if ("remove".equals(newState)) {
+            questionnaireRepository.delete(idQuestionnaire);
+        } else if ("start".equals(newState)) {
+            Questionnaire questionnaire = questionnaireRepository.findByIdQuestionnaire(idQuestionnaire);
+            questionnaire.setState(State.STARTED);
+            questionnaireRepository.save(questionnaire);
+        } else if ("stop".equals(newState)) {
+            Questionnaire questionnaire = questionnaireRepository.findByIdQuestionnaire(idQuestionnaire);
+            questionnaire.setState(State.STOPED);
+            questionnaireRepository.save(questionnaire);
+        }
         response.sendRedirect("/personalaccount");
     }
 }

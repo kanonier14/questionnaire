@@ -1,5 +1,6 @@
 package com.questionnaire.entity;
 
+import com.questionnaire.core.State;
 import com.questionnaire.core.Topic;
 
 import org.springframework.data.annotation.Id;
@@ -25,6 +26,8 @@ public class Questionnaire {
     private long creationDate;
 
     private Topic topic;
+
+    private State state;
 
     @DBRef
     private List<SimpleQuestion> questions;
@@ -92,5 +95,13 @@ public class Questionnaire {
 
     public void setTopic(Topic topic) {
         this.topic = topic;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 }

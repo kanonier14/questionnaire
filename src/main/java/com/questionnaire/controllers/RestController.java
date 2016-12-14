@@ -1,5 +1,6 @@
 package com.questionnaire.controllers;
 
+import com.questionnaire.core.State;
 import com.questionnaire.entity.Questionnaire;
 import com.questionnaire.entity.sessionentity.LoginState;
 import com.questionnaire.repository.QuestionnaireRepository;
@@ -32,6 +33,9 @@ public class RestController {
         String topic = request.getParameter("topic");
         String dateOrder = request.getParameter("dateOrder");
         List<Questionnaire> questionnaires = filterService.filterAuthQuestionnaire(request, topic, dateOrder);
+        questionnaires = questionnaires.stream()
+                            .filter(questionnaire -> State.STARTED.equals(questionnaire.getState()))
+                            .collect(Collectors.toList());
         QuestionnaireResult result = new QuestionnaireResult();
         Integer requestedPage;
         if (request.getParameter("pagenumber") != null) {

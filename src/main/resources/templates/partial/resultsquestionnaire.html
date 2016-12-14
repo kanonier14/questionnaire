@@ -1,12 +1,15 @@
 <div class="questionnaire-page-left-column">
     <div class="newsurvey results">
-        <a th:href="@{/questionnaire/remove(id=${questionnaire.id})}" class="newitem">Удалить анкету</a>
+        <a th:href="@{/questionnaire/setstate(id=${questionnaire.id},state=remove)}" class="newitem">Удалить анкету</a>
+    </div>
+    <div th:if="${questionnaire.state == 'STARTED'}" class="newsurvey results">
+        <a th:href="@{/questionnaire/setstate(id=${questionnaire.id},state=stop)}" class="newitem">Остановить голосование</a>
+    </div>
+    <div th:if="${questionnaire.state == 'NOT_STARTED'}" class="newsurvey results">
+        <a th:href="@{/questionnaire/setstate(id=${questionnaire.id},state=start)}" class="newitem">Запустить голосование</a>
     </div>
     <div class="newsurvey results">
-        <a class="newitem">Остановить голосование</a>
-    </div>
-    <div class="newsurvey results">
-        <a class="newitem">Запустить голосование</a>
+        Состояние: <span th:text="${questionnaire.state}"/>
     </div>
 </div>
 <div class="questionnaire-form-wrapper">
