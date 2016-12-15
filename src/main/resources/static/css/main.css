@@ -443,6 +443,11 @@ header {
     display: inline-block;
     color: #285473;
 }
+
+.question-edit-form__text-answer {
+    resize: none;
+    width: 95%;
+}
 /*===========================================================FOOTER====================================*/
 footer .container {
     padding: 27px 21px

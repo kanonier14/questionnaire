@@ -47,18 +47,6 @@ public class RootController {
 
     @RequestMapping("/")
     public String getMainPage(Model model, HttpServletRequest request) {
-        List<Questionnaire> questionnaires;
-        if (request.getSession().getAttribute("authenticate") != null) {
-            LoginState loginState = (LoginState)sessionCache.get(request, LoginState.class);
-            questionnaires = questionnaireRepository.findAll().stream()
-                                .filter(questionnaire -> !questionnaire.getAuthor().getVkontakteId().equals(loginState.getVkId()))
-                                .collect(Collectors.toList());
-        } else {
-            questionnaires = questionnaireRepository.findAll().stream()
-                                .filter(questionnaire -> !questionnaire.isGated())
-                                .collect(Collectors.toList());
-        }
-        model.addAttribute("questionnaires", questionnaires);
         return "index";
     }
 
