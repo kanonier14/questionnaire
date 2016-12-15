@@ -1,5 +1,6 @@
 package com.questionnaire.services;
 
+import com.questionnaire.core.Gender;
 import com.questionnaire.entity.results.QuestionnaireResults;
 
 /**
@@ -7,5 +8,5 @@ import com.questionnaire.entity.results.QuestionnaireResults;
  */
 public interface QuestionnaireService {
 
-    QuestionnaireResults getResults(String id);
+    QuestionnaireResults getResults(String id, Gender gender);
 }

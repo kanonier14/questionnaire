@@ -11,6 +11,7 @@ import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 import com.vk.api.sdk.objects.UserAuthResponse;
 import com.vk.api.sdk.objects.users.UserXtrCounters;
+import com.vk.api.sdk.queries.users.UserField;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,21 +50,22 @@ public class UserController {
         LoginState loginState = new LoginState(authResponse.getUserId(), authResponse.getAccessToken());
         sessionCache.put(request, loginState);
         request.getSession().setAttribute("authenticate", true);
-        UserXtrCounters userInfo = vk.users().get(actor).execute().get(0);
+        UserXtrCounters userInfo = vk.users().get(actor).fields(UserField.SEX).execute().get(0);
         request.getSession().setAttribute("userName", userInfo.getLastName() + " " + userInfo.getFirstName());
-        userService.saveUser(authResponse.getUserId());
+        userService.saveUser(userInfo);
         response.sendRedirect("/personalaccount");
     }
 
     @RequestMapping(path = "/authorize")
     public void authorize(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect("https://oauth.vk.com/authorize?client_id=5761453&display=page&redirect_uri=http://localhost:8080/user/authorization/user&scope=friends&response_type=code&v=5.60");
+        response.sendRedirect("https://oauth.vk.com/authorize?client_id=5761453&display=page&redirect_uri=http://localhost:8080/user/authorization/user&response_type=code&v=5.60");
     }
 
     @RequestMapping(path = "/logout")
     public void logOut(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         request.getSession().removeAttribute("authenticate");
+        sessionCache.drop(request, LoginState.class);
         response.sendRedirect("/");
     }
 }

@@ -19,6 +19,9 @@ public class AnswerToQuestion {
     @DBRef
     private List<SimpleAnswer> answers;
 
+    @DBRef
+    private User answeredUser;
+
     public AnswerToQuestion() {
     }
 
@@ -45,5 +48,13 @@ public class AnswerToQuestion {
 
     public void setAnswers(List<SimpleAnswer> answers) {
         this.answers = answers;
+    }
+
+    public User getAnsweredUser() {
+        return answeredUser;
+    }
+
+    public void setAnsweredUser(User answeredUser) {
+        this.answeredUser = answeredUser;
     }
 }

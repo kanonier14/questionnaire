@@ -1,5 +1,6 @@
 package com.questionnaire.controllers;
 
+import com.questionnaire.core.Gender;
 import com.questionnaire.core.State;
 import com.questionnaire.core.Topic;
 import com.questionnaire.entity.AnswerToQuestion;
@@ -114,16 +115,21 @@ public class QuestionnaireController {
                             .map(answer -> simpleAnswerRepository.findByIdAnswer(answer))
                             .collect(Collectors.toList());
                     answerToQuestion.setAnswers(givenAnswers);
+                    if (sessionCache.get(request, LoginState.class) != null) {
+                        LoginState loginState = (LoginState) sessionCache.get(request, LoginState.class);
+                        answerToQuestion.setAnsweredUser(userRepository.findByVkontakteId(loginState.getVkId()));
+                    }
                     answerToQuestionRepository.save(answerToQuestion);
                 });
         response.sendRedirect("/");
     }
 
-    @RequestMapping(path = "/results", params = "id", method = RequestMethod.GET)
+    @RequestMapping(path = "/results", method = RequestMethod.GET)
     public String getQuestionnaireResults(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (userService.isAuthenticate(request)) {
             String idQuestionnaire = request.getParameter("id");
-            QuestionnaireResults questionnaireResults = questionnaireService.getResults(idQuestionnaire);
+            String gender = request.getParameter("gender");
+            QuestionnaireResults questionnaireResults = questionnaireService.getResults(idQuestionnaire, gender == null ? null : Gender.valueOf(gender));
             model.addAttribute("questionnaire", questionnaireResults);
             return "resultsquestionnaire";
         } else {

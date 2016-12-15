@@ -1,5 +1,6 @@
 package com.questionnaire.services.impl;
 
+import com.questionnaire.core.Gender;
 import com.questionnaire.entity.AnswerToQuestion;
 import com.questionnaire.entity.Questionnaire;
 import com.questionnaire.entity.results.Answer;
@@ -26,12 +27,25 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     private AnswerToQuestionRepository answerToQuestionRepository;
 
     @Override
-    public QuestionnaireResults getResults(String id) {
+    public QuestionnaireResults getResults(String id, Gender gender) {
         QuestionnaireResults questionnaireResults = new QuestionnaireResults();
         Questionnaire requestedQuestionnaire = questionnaireRepository.findByIdQuestionnaire(id);
 
+        List<Question> questions = getQuestions(requestedQuestionnaire, gender);
+
+        questionnaireResults.setQuestions(questions);
         questionnaireResults.setTitle(requestedQuestionnaire.getTitle());
-        List<Question> questions = requestedQuestionnaire.getQuestions().stream()
+        questionnaireResults.setId(id);
+        if (requestedQuestionnaire.getState() == null) {
+            questionnaireResults.setState("NOT_STARTED");
+        } else {
+            questionnaireResults.setState(requestedQuestionnaire.getState().name());
+        };
+        return questionnaireResults;
+    }
+
+    private List<Question> getQuestions(Questionnaire requestedQuestionnaire, Gender gender) {
+        return requestedQuestionnaire.getQuestions().stream()
                 .map(question -> {
                     Question questionResult = new Question();
                     questionResult.setTitle(question.getTitle());
@@ -42,7 +56,14 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
                                 Answer answer = new Answer();
                                 answer.setTitle(simpleAnswer.getTitle());
                                 Integer countAnswers = answersToQuestion.stream()
-                                        .filter(answerToQuestion -> answerToQuestion.getAnswers().contains(simpleAnswer))
+                                        .filter(answerToQuestion -> {
+                                            if (gender == null) {
+                                                return answerToQuestion.getAnswers().contains(simpleAnswer);
+                                            } else {
+                                                return answerToQuestion.getAnswers().contains(simpleAnswer) && answerToQuestion.getAnsweredUser() != null
+                                                       && answerToQuestion.getAnsweredUser().getGender() != null && answerToQuestion.getAnsweredUser().getGender().equals(gender);
+                                            }
+                                        })
                                         .collect(Collectors.toList()).size();
                                 answer.setNumber(countAnswers);
                                 return answer;
@@ -50,13 +71,5 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
                     questionResult.setAnswers(answers);
                     return questionResult;
                 }).collect(Collectors.toList());
-        questionnaireResults.setQuestions(questions);
-        questionnaireResults.setId(id);
-        if (requestedQuestionnaire.getState() == null) {
-            questionnaireResults.setState("NOT_STARTED");
-        } else {
-            questionnaireResults.setState(requestedQuestionnaire.getState().name());
-        };
-        return questionnaireResults;
     }
 }

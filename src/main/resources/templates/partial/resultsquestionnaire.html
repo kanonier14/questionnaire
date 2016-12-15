@@ -9,6 +9,15 @@
         <a th:href="@{/questionnaire/setstate(id=${questionnaire.id},state=start)}" class="newitem">Запустить голосование</a>
     </div>
     <div class="newsurvey results">
+        <a th:href="@{/questionnaire/results(id=${questionnaire.id},gender=FEMALE)}" class="newitem">Ответы женщин</a>
+    </div>
+    <div class="newsurvey results">
+        <a th:href="@{/questionnaire/results(id=${questionnaire.id},gender=MALE)}" class="newitem">Ответы мужчин</a>
+    </div>
+    <div class="newsurvey results">
+        <a th:href="@{/questionnaire/results(id=${questionnaire.id})}" class="newitem">Все результаты</a>
+    </div>
+    <div class="newsurvey results">
         Состояние: <span th:text="${questionnaire.state}"/>
     </div>
 </div>

@@ -1,5 +1,7 @@
 package com.questionnaire.entity;
 
+import com.questionnaire.core.Gender;
+
 import org.springframework.data.annotation.Id;
 
 /**
@@ -9,6 +11,8 @@ public class User {
 
     @Id
     private String userId;
+
+    private Gender gender;
 
     private Integer vkontakteId;
 
@@ -29,5 +33,13 @@ public class User {
 
     public void setVkontakteId(Integer vkontakteId) {
         this.vkontakteId = vkontakteId;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 }
