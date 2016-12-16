@@ -1,6 +1,7 @@
 package com.questionnaire.services.impl;
 
 import com.questionnaire.core.Gender;
+import com.questionnaire.core.QuestionType;
 import com.questionnaire.entity.AnswerToQuestion;
 import com.questionnaire.entity.Questionnaire;
 import com.questionnaire.entity.results.Answer;
@@ -12,6 +13,7 @@ import com.questionnaire.services.QuestionnaireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,29 +49,41 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     private List<Question> getQuestions(Questionnaire requestedQuestionnaire, Gender gender) {
         return requestedQuestionnaire.getQuestions().stream()
                 .map(question -> {
-                    Question questionResult = new Question();
-                    questionResult.setTitle(question.getTitle());
-                    questionResult.setQuestionType(question.getQuestionType());
-                    List<AnswerToQuestion> answersToQuestion = answerToQuestionRepository.findByQuestion(question);
-                    List<Answer> answers = question.getAnswers().stream()
-                            .map(simpleAnswer -> {
-                                Answer answer = new Answer();
-                                answer.setTitle(simpleAnswer.getTitle());
-                                Integer countAnswers = answersToQuestion.stream()
-                                        .filter(answerToQuestion -> {
-                                            if (gender == null) {
-                                                return answerToQuestion.getAnswers().contains(simpleAnswer);
-                                            } else {
-                                                return answerToQuestion.getAnswers().contains(simpleAnswer) && answerToQuestion.getAnsweredUser() != null
-                                                       && answerToQuestion.getAnsweredUser().getGender() != null && answerToQuestion.getAnsweredUser().getGender().equals(gender);
-                                            }
-                                        })
-                                        .collect(Collectors.toList()).size();
-                                answer.setNumber(countAnswers);
-                                return answer;
-                            }).collect(Collectors.toList());
-                    questionResult.setAnswers(answers);
-                    return questionResult;
+                    if(!question.getQuestionType().equals(QuestionType.OPEN)) {
+                        Question questionResult = new Question();
+                        questionResult.setTitle(question.getTitle());
+                        questionResult.setQuestionType(question.getQuestionType());
+                        List<AnswerToQuestion> answersToQuestion = answerToQuestionRepository.findByQuestion(question);
+                        List<Answer> answers = question.getAnswers().stream()
+                                .map(simpleAnswer -> {
+                                    Answer answer = new Answer();
+                                    answer.setTitle(simpleAnswer.getTitle());
+                                    Integer countAnswers = answersToQuestion.stream()
+                                            .filter(answerToQuestion -> {
+                                                if (gender == null) {
+                                                    return answerToQuestion.getAnswers().contains(simpleAnswer);
+                                                } else {
+                                                    return answerToQuestion.getAnswers().contains(simpleAnswer) && answerToQuestion.getAnsweredUser() != null
+                                                            && answerToQuestion.getAnsweredUser().getGender() != null && answerToQuestion.getAnsweredUser().getGender().equals(gender);
+                                                }
+                                            })
+                                            .collect(Collectors.toList()).size();
+                                    answer.setNumber(countAnswers);
+                                    return answer;
+                                }).collect(Collectors.toList());
+                        questionResult.setAnswers(answers);
+                        return questionResult;
+                    } else {
+                        Question questionResult = new Question();
+                        questionResult.setTitle(question.getTitle());
+                        questionResult.setQuestionType(question.getQuestionType());
+                        List<AnswerToQuestion> answersToQuestion = answerToQuestionRepository.findByQuestion(question);
+                        List<String> openAnswers = answersToQuestion.stream()
+                                .map(answerToQuestion -> answerToQuestion.getOpenAnswer())
+                                .collect(Collectors.toList());
+                        questionResult.setOpenAnswers(openAnswers);
+                        return questionResult;
+                    }
                 }).collect(Collectors.toList());
     }
 }

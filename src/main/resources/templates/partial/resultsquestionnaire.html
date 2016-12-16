@@ -27,18 +27,34 @@
         </h1>
     </div>
     <div th:each="question : ${questionnaire.questions}">
-        <div class="question-result-wrapper" data-resultComponent="QuestionResult">
-            <div class="question-edit-form__text content_header questionnaire-list__content-header">
-                <h3 class="content_header__title questionnaire-list__content_header__title" th:text="${question.title}"/>
+
+        <div th:if="${question.questionType.getName()} != 'open'">
+            <div class="question-result-wrapper" data-resultComponent="QuestionResult">
+                <div class="question-edit-form__text content_header questionnaire-list__content-header">
+                    <h3 class="content_header__title questionnaire-list__content_header__title" th:text="${question.title}"/>
+                </div>
+                <div class="chart"></div>
+                <div class="question-edit-form__answers question-result__answers-block">
+                    <div class="question-result__answer-data--hidden" th:each="answer : ${question.answers}">
+                        <span th:text="${answer.title}"/>
+                        <span th:text="${answer.number}"/>
+                        <div>
+                            <input type="hidden" name="title" th:value="${answer.title}"/>
+                            <input type="hidden" name="countVotes" th:value="${answer.number}"/>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="chart"></div>
-            <div class="question-edit-form__answers question-result__answers-block">
-                <div class="question-result__answer-data--hidden" th:each="answer : ${question.answers}">
-                    <span th:text="${answer.title}"/>
-                    <span th:text="${answer.number}"/>
-                    <div>
-                        <input type="hidden" name="title" th:value="${answer.title}"/>
-                        <input type="hidden" name="countVotes" th:value="${answer.number}"/>
+        </div>
+
+        <div th:if="${question.questionType.getName()} == 'open'">
+            <div class="question-result-wrapper">
+                <div class="question-edit-form__text content_header questionnaire-list__content-header">
+                    <h3 class="content_header__title questionnaire-list__content_header__title" th:text="${question.title}"/>
+                </div>
+                <div class="question-edit-form__answers question-result__answers-block">
+                    <div class="question-result__answer-data--hidden" th:each="answer : ${question.openAnswers}">
+                        <div th:text="${answer}"/>
                     </div>
                 </div>
             </div>

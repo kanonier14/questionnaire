@@ -12,6 +12,7 @@ public class Question {
     private String title;
     private QuestionType questionType;
     private List<Answer> answers;
+    private List<String> openAnswers;
 
     public String getId() {
         return id;
@@ -48,5 +49,13 @@ public class Question {
 
     public Question() {
 
+    }
+
+    public List<String> getOpenAnswers() {
+        return openAnswers;
+    }
+
+    public void setOpenAnswers(List<String> openAnswers) {
+        this.openAnswers = openAnswers;
     }
 }

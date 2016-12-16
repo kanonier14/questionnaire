@@ -1,6 +1,7 @@
 package com.questionnaire.controllers;
 
 import com.questionnaire.core.Gender;
+import com.questionnaire.core.QuestionType;
 import com.questionnaire.core.State;
 import com.questionnaire.core.Topic;
 import com.questionnaire.entity.AnswerToQuestion;
@@ -109,12 +110,19 @@ public class QuestionnaireController {
                 .filter(parameter -> questionRepository.findByIdQuestion(parameter.getKey()) != null)
                 .forEach(parameter -> {
                     AnswerToQuestion answerToQuestion = new AnswerToQuestion();
-                    answerToQuestion.setQuestion(questionRepository.findByIdQuestion(parameter.getKey()));
+                    SimpleQuestion answeredQuestion = questionRepository.findByIdQuestion(parameter.getKey());
+                    answerToQuestion.setQuestion(answeredQuestion);
+
                     String[] answers = parameter.getValue();
-                    List<SimpleAnswer> givenAnswers = Arrays.asList(answers).stream()
-                            .map(answer -> simpleAnswerRepository.findByIdAnswer(answer))
-                            .collect(Collectors.toList());
-                    answerToQuestion.setAnswers(givenAnswers);
+
+                    if (!answeredQuestion.getQuestionType().equals(QuestionType.OPEN)) {
+                        List<SimpleAnswer> givenAnswers = Arrays.asList(answers).stream()
+                                .map(answer -> simpleAnswerRepository.findByIdAnswer(answer))
+                                .collect(Collectors.toList());
+                        answerToQuestion.setAnswers(givenAnswers);
+                    } else {
+                        answerToQuestion.setOpenAnswer(answers[0]);
+                    }
                     if (sessionCache.get(request, LoginState.class) != null) {
                         LoginState loginState = (LoginState) sessionCache.get(request, LoginState.class);
                         answerToQuestion.setAnsweredUser(userRepository.findByVkontakteId(loginState.getVkId()));

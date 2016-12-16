@@ -19,6 +19,8 @@ public class AnswerToQuestion {
     @DBRef
     private List<SimpleAnswer> answers;
 
+    private String openAnswer;
+
     @DBRef
     private User answeredUser;
 
@@ -56,5 +58,13 @@ public class AnswerToQuestion {
 
     public void setAnsweredUser(User answeredUser) {
         this.answeredUser = answeredUser;
+    }
+
+    public String getOpenAnswer() {
+        return openAnswer;
+    }
+
+    public void setOpenAnswer(String openAnswer) {
+        this.openAnswer = openAnswer;
     }
 }
