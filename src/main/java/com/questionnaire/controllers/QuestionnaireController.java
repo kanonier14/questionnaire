@@ -129,7 +129,7 @@ public class QuestionnaireController {
                     }
                     answerToQuestionRepository.save(answerToQuestion);
                 });
-        response.sendRedirect("/");
+        response.sendRedirect("/thanks");
     }
 
     @RequestMapping(path = "/results", method = RequestMethod.GET)

@@ -21,7 +21,8 @@ var CreateQuestionnaireForm = React.createClass({
 
     render: function() {
         let removeQuestion = this.removeQuestion;
-        let questions = this.state.questions.map(function (item) {
+        let questionsState = this.state.questions;
+        let questions = questionsState.map(function (item) {
             return <CreateQuestionForm key={item.name} name={item.name} type={item.type} removeQuestion={removeQuestion}/>;
         });
         return(
@@ -36,7 +37,7 @@ var CreateQuestionnaireForm = React.createClass({
                         <option value="ART">Искусство</option>
                     </select>
                 </div>
-                <QuestionnaireEditHeader/>
+                <QuestionnaireEditHeader questionList={questionsState}/>
                 <div>
                     <QuestionTypeSwitcher addQuestion={this.addQuestion}/>
                 </div>

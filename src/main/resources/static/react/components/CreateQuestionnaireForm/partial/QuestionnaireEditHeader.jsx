@@ -9,6 +9,12 @@ var QuestionnaireEditHeader = React.createClass({
                 element.classList.add('required_field_red');
             }
         });
+        document.querySelectorAll('[data-requiredanswer=true]').forEach(function(element) {
+            if (element.querySelectorAll('[data-answer]').length < 1) {
+                stopSubmit = true;
+                element.classList.add('required_field_red');
+            };
+        });
         if (stopSubmit) {
             event.preventDefault();
         }

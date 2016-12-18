@@ -63,7 +63,10 @@ public class RootController {
         }
     }
 
-
+    @RequestMapping("/thanks")
+    public String geThanksPage() {
+        return "thankyoupage";
+    }
 
     @RequestMapping("/questionnaries")
     public String getQuestionnairePage() {
